@@ -18,6 +18,7 @@ if(WIN32)
   endif()
 endif()
 
+include(GNUInstallDirs)
 find_package(Qt5 COMPONENTS Core Network REQUIRED)
 find_package(Cutelyst2Qt5 REQUIRED)
 find_package(ASqlQt5 REQUIRED)
@@ -33,3 +34,22 @@ file(GLOB_RECURSE TEMPLATES_SRC root/*)
 
 add_subdirectory(src)
 add_subdirectory(tests)
+
+set(CPACK_PACKAGE_VENDOR "Daniel Nicoletti")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Hash Backend Finance Challenge")
+set(CPACK_PACKAGE_CONTACT "dantt12@gmail.com")
+
+if(UNIX)
+  if(NOT CPACK_GENERATOR)
+    set(CPACK_GENERATOR "DEB")
+  endif()
+
+  set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+  set(CPACK_STRIP_FILES 1)
+  set(CPACK_DEBIAN_FILE_NAME DEB-DEFAULT)
+  if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+      set(CPACK_DEBIAN_DEBUGINFO_PACKAGE ON)
+  endif()
+endif()
+
+include(CPack)

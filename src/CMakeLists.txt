@@ -16,3 +16,11 @@ target_link_libraries(hash_backend_finance_challenge
     Qt5::Network
 )
 
+install(TARGETS hash_backend_finance_challenge
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT runtime
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT devel
+)
+
+install(DIRECTORY ../root
+        DESTINATION ${CMAKE_INSTALL_FULL_DATADIR}/hashf
+)

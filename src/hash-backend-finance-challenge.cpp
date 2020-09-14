@@ -31,7 +31,8 @@ bool hash_backend_finance_challenge::init()
 
 bool hash_backend_finance_challenge::postFork()
 {
-    const auto dbUri = config(QStringLiteral("db_uri"), QStringLiteral("postgres:///hashf")).toString();
+    const QString defaultUri = qEnvironmentVariable("DB_URI", QStringLiteral("postgres:///hashf"));
+    const auto dbUri = config(QStringLiteral("db_uri"), defaultUri).toString();
     qInfo(H_MAIN) << "Creating pool" << dbUri;
     APool::addDatabase(dbUri);
 
